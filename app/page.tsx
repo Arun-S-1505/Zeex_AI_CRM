@@ -28,7 +28,7 @@ const leads: Lead[] = [
   ['LD-1043','Nisha Menon','BluePeak Ports','Z-Tracs','Website enquiry','Ananya Shah','Negotiation','High','11 Jun 2024','NM'],
   ['LD-1042','Lucas Martin','Orion Systems','Z-Consultancy','Marketing campaign','Priya Nair','New','Low','10 Jun 2024','LM'],
   ['LD-1041','Ishita Rao','BuildWell Group','Z-Factory','Brochure download','Rohan Kapoor','Won','Medium','10 Jun 2024','IR'],
-]
+].map(([id, name, company, product, source, owner, status, priority, date, initials]) => ({ id, name, company, product, source, owner, status, priority, date, initials }))
 const stats = [
   { label:'Total leads', value:'248', change:'+12.5%', icon:Users, color:'violet' }, { label:'New leads', value:'42', change:'+8.2%', icon:Zap, color:'blue' },
   { label:'Qualified leads', value:'86', change:'+18.4%', icon:TrendingUp, color:'green' }, { label:'Pending follow-ups', value:'17', change:'-4.3%', icon:Activity, color:'amber' },
@@ -46,7 +46,7 @@ export default function Page() {
   const [product, setProduct] = useState('All products')
   const [showLeadForm, setShowLeadForm] = useState(false)
   const [role, setRole] = useState('SUPERADMIN')
-  const filtered = useMemo(() => leads.filter(l => (l.name + l.company + l.product + l.owner).toLowerCase().includes(query.toLowerCase()) && (product === 'All products' || l.product === product)), [query, product])
+  const filtered = useMemo(() => leads.filter(l => String(l.name + l.company + l.product + l.owner).toLowerCase().includes(query.toLowerCase()) && (product === 'All products' || l.product === product)), [query, product])
 
   return <div className="crm-shell">
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
